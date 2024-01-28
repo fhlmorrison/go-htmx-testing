@@ -1,0 +1,10 @@
+{{define "count"}}
+<button hx-post="/clicked" hx-swap="innerHTML" hx-target="#count">
+  Click Me
+</button>
+<div>
+  You have clicked
+  <span id="count"> {{.}} </span>
+  times.
+</div>
+{{end}}

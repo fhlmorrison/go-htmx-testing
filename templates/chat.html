@@ -1,0 +1,25 @@
+{{define "chat"}}
+<div>Chat</div>
+<div>
+<form hx-on::after-request="this.reset()">
+  <input type="text" id="new" name="chat-input" placeholder="Echo Message" />
+  <button
+    hx-post="/chat/send"
+    hx-swap="none"
+    class="new"
+  >
+    Echo
+  </button>
+</form>
+</div>
+<div id="chat-results" hx-ext="sse" sse-connect="/chat">
+    <div sse-swap="ChatEnd" hx-target="#current-chat" hx-swap="outerHTML"></div>
+    {{template "current-chat"}}
+</div>
+{{end}}
+
+{{define "chat-end"}} <p>{{.}}</p>{{template "current-chat"}}{{end}}
+
+{{define "current-chat"}}<p id="current-chat" sse-swap="ChatUpdate" hx-swap="beforeend"></p>{{end}}
+
+{{define "word"}}<span>{{.}}</span>{{end}}

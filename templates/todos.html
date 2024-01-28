@@ -1,0 +1,48 @@
+{{define "todos"}}
+<div id="todos" class="list">
+  {{range $i, $a := .}}
+  <li id="todo{{$i}}">
+    <label for>{{$a.Name}}</label>
+    {{if $a.Completed}}
+    <input
+      type="checkbox"
+      hx-swap="outerHTML"
+      checked
+      hx-put="/todo/toggle?id={{$i}}&value=false"
+      hx-trigger="click"
+    />
+    {{else}}
+    <input
+      type="checkbox"
+      hx-swap="outerHTML"
+      hx-put="/todo/toggle?id={{$i}}&value=true"
+      hx-trigger="click"
+    />
+    {{end}}
+    <button
+      hx-delete="/todo/delete?id={{$i}}"
+      hx-swap="outerHTML"
+      hx-target="#todos"
+      hx-trigger="click"
+    >
+      Delete
+    </button>
+  </li>
+  {{end}}
+</div>
+{{end}} {{define "toggle"}} {{if .Value}}
+<input
+  type="checkbox"
+  hx-swap="outerHTML"
+  checked
+  hx-put="/todo/toggle?id={{.Id}}&value=false"
+  hx-trigger="click"
+/>
+{{else}}
+<input
+  type="checkbox"
+  hx-swap="outerHTML"
+  hx-put="/todo/toggle?id={{.Id}}&value=true"
+  hx-trigger="click"
+/>
+{{end}} {{end}}

@@ -1,0 +1,19 @@
+{{define "index"}}
+<script src="https://unpkg.com/htmx.org@1.9.10"></script>
+<script src="https://unpkg.com/htmx.org/dist/ext/sse.js"></script>
+<!-- have a button POST a click via AJAX -->
+{{template "count" .Count}}
+<form>
+  <input type="text" id="new" name="name" placeholder="New Todo" />
+  <button
+    hx-post="/todo/new"
+    hx-swap="innerHTML"
+    hx-target="#todos"
+    class="new"
+  >
+    Add
+  </button>
+</form>
+{{template "todos" .Todos}} {{template "chat"}} 
+{{template "ticker-list"}}
+{{end}}
