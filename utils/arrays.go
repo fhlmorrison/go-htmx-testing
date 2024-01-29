@@ -12,6 +12,15 @@ func Remove[T any](slice []T, s int) []T {
 	return append(slice[:s], slice[s+1:]...)
 }
 
+func RemoveElement[T comparable](slice []T, elem T) []T {
+	for i, e := range slice {
+		if e == elem {
+			return Remove(slice, i)
+		}
+	}
+	return slice
+}
+
 func Filter[T any](slice []T, f func(T) bool) []T {
 	var filtered []T = make([]T, len(slice))
 	n := 0
