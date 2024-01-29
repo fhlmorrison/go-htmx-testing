@@ -1,7 +1,12 @@
 {{define "ticker-list"}}
-<div hx-ext="sse" sse-connect="/ticker?symbol=AAAA&symbol=BBBB">
-  <div sse-swap="AAAA" hx-swap="outerHTML"></div>
-  <div sse-swap="BBBB" hx-swap="outerHTML"></div>
+<div
+  hx-ext="sse"
+  sse-connect="/ticker?{{range .}}symbol={{.}}&{{end}}"
+>
+  {{range .}}
+  <div sse-swap="{{.}}" hx-swap="outerHTML"></div>
+  {{end}} {{end}}
 </div>
-{{end}}
-{{define "ticker"}}<div sse-swap="{{.Symbol}}" hx-swap="outerHTML">{{.Symbol}} {{.Quantity}} @ {{.Price}}</div>{{end}}
+
+{{define "ticker"}}<div sse-swap="{{.Symbol}}" hx-swap="outerHTML">{{.Symbol}} {{.Quantity}} @ {{.Price}}</div>{{end}} 
+

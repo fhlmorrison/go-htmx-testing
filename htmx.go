@@ -11,19 +11,25 @@ import (
 )
 
 type PageData struct {
-	Count int
-	Todos todo.TodoList
+	Count   int
+	Todos   todo.TodoList
+	Tickers []string
+}
+
+func allTickers() []string {
+	return []string{"AAAA", "BBBB", "CCCC"}
 }
 
 func main() {
 	var data PageData = PageData{
 		0,
 		todo.TodoList{},
+		allTickers()[0:1],
 	}
 
 	var chat chat.Chat = make(chat.Chat)
 
-	var tickers = ticker.CreateTickerListFromArray([]string{"AAAA", "BBBB", "CCCC"})
+	var tickers = ticker.CreateTickerListFromArray(allTickers())
 	tickers.StartAllTickers()
 
 	templates, err := template.ParseFiles(
