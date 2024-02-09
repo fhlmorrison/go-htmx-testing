@@ -1,10 +1,27 @@
+{{define "ticker-form"}}
+<div id="ticker-form">
+  <form>
+    <select name="symbol">
+      <option value="" disabled selected hidden>Tickers...</option>
+      {{range .Inactive}}
+      <option value="{{.}}">{{.}}</option>
+      {{end}}
+    </select>
+    <button hx-post="/ticker/add" hx-target="#ticker-form" hx-swap="outerHTML" hx-include="#ticker-list">Add</button>
+  </form>
+  {{template "ticker-list" .Active}}
+</div>
+{{end}}
+
 {{define "ticker-list"}}
 <div
+  id="ticker-list"
   hx-ext="sse"
   sse-connect="/ticker?{{range .}}symbol={{.}}&{{end}}"
 >
   {{range .}}
-  <div sse-swap="{{.}}" hx-swap="outerHTML"></div>
+  <div sse-swap="{{.}}" hx-swap="outerHTML">{{.}} --- @ --.--</div>
+  <input hidden name="{{.}}" value="{{.}}">
   {{end}} {{end}}
 </div>
 

@@ -59,7 +59,7 @@ func (tickers TickerList) StartAllTickers() {
 	}
 }
 
-func (tickers TickerList) StopAllTickers(symbol string) {
+func (tickers TickerList) StopAllTickers() {
 	for symbol := range tickers.broadcasters {
 		tickers.StopTicker(symbol)
 	}
